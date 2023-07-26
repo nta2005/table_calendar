@@ -60,6 +60,9 @@ class CalendarStyle {
   /// Includes `cellMargin` for calculations.
   final double rangeHighlightScale;
 
+  /// BorderRadius of range selection highlight.
+  final double rangeHighlightBorderRadius;
+
   /// Color of range selection highlight.
   final Color rangeHighlightColor;
 
@@ -161,6 +164,7 @@ class CalendarStyle {
     this.markerSizeScale = 0.2,
     this.markersAnchor = 0.7,
     this.rangeHighlightScale = 1.0,
+    this.rangeHighlightBorderRadius = 16.0,
     this.markerMargin = const EdgeInsets.symmetric(horizontal: 0.3),
     this.markersAlignment = Alignment.bottomCenter,
     this.markersMaxCount = 4,

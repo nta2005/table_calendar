@@ -596,8 +596,29 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
 
         if (rangeHighlight == null) {
           if (isWithinRange) {
+            int startDay = getWeekdayNumber(widget.startingDayOfWeek);
+            int endDay = _renderEndDay(widget.startingDayOfWeek);
+
             rangeHighlight = Center(
               child: Container(
+                decoration: BoxDecoration(
+                  color: widget.calendarStyle.rangeHighlightColor,
+                  borderRadius: day.weekday == startDay
+                      ? BorderRadius.only(
+                          topLeft: Radius.circular(
+                              widget.calendarStyle.rangeHighlightBorderRadius),
+                          bottomLeft: Radius.circular(
+                              widget.calendarStyle.rangeHighlightBorderRadius),
+                        )
+                      : day.weekday == endDay
+                          ? BorderRadius.only(
+                              topRight: Radius.circular(widget
+                                  .calendarStyle.rangeHighlightBorderRadius),
+                              bottomRight: Radius.circular(widget
+                                  .calendarStyle.rangeHighlightBorderRadius),
+                            )
+                          : null,
+                ),
                 margin: EdgeInsetsDirectional.only(
                   start: isRangeStart ? constraints.maxWidth * 0.5 : 0.0,
                   end: isRangeEnd ? constraints.maxWidth * 0.5 : 0.0,
@@ -605,7 +626,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                 height:
                     (shorterSide - widget.calendarStyle.cellMargin.vertical) *
                         widget.calendarStyle.rangeHighlightScale,
-                color: widget.calendarStyle.rangeHighlightColor,
+                // color: widget.calendarStyle.rangeHighlightColor,
               ),
             );
           }
@@ -776,5 +797,31 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
     List<int> weekendDays = const [DateTime.saturday, DateTime.sunday],
   }) {
     return weekendDays.contains(day.weekday);
+  }
+
+  _renderEndDay(StartingDayOfWeek startingDayOfWeek) {
+    switch (getWeekdayNumber(startingDayOfWeek)) {
+      // StartingDayOfWeek.monday
+      case 1:
+        return DateTime.sunday;
+      // StartingDayOfWeek.tuesday
+      case 2:
+        return DateTime.monday;
+      // StartingDayOfWeek.wednesday
+      case 3:
+        return DateTime.tuesday;
+      // StartingDayOfWeek.thursday
+      case 4:
+        return DateTime.wednesday;
+      // StartingDayOfWeek.friday
+      case 5:
+        return DateTime.thursday;
+      // StartingDayOfWeek.saturday
+      case 6:
+        return DateTime.friday;
+      // StartingDayOfWeek.sunday
+      case 7:
+        return DateTime.saturday;
+    }
   }
 }
