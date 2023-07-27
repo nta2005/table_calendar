@@ -600,33 +600,41 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
             int endDay = _getRangeHighlightEndDay(widget.startingDayOfWeek);
 
             rangeHighlight = Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: widget.calendarStyle.rangeHighlightColor,
-                  borderRadius: day.weekday == startDay
-                      ? BorderRadius.only(
-                          topLeft: Radius.circular(
-                              widget.calendarStyle.rangeHighlightBorderRadius),
-                          bottomLeft: Radius.circular(
-                              widget.calendarStyle.rangeHighlightBorderRadius),
-                        )
-                      : day.weekday == endDay
-                          ? BorderRadius.only(
-                              topRight: Radius.circular(widget
-                                  .calendarStyle.rangeHighlightBorderRadius),
-                              bottomRight: Radius.circular(widget
-                                  .calendarStyle.rangeHighlightBorderRadius),
-                            )
-                          : null,
+              child: Padding(
+                padding: widget.calendarStyle.rangeHighlightPadding
+                    ? (day.weekday == startDay
+                        ? EdgeInsets.only(left: 10.0)
+                        : day.weekday == endDay
+                            ? EdgeInsets.only(right: 10.0)
+                            : EdgeInsets.zero)
+                    : EdgeInsets.zero,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: widget.calendarStyle.rangeHighlightColor,
+                    borderRadius: day.weekday == startDay
+                        ? BorderRadius.only(
+                            topLeft: Radius.circular(widget
+                                .calendarStyle.rangeHighlightBorderRadius),
+                            bottomLeft: Radius.circular(widget
+                                .calendarStyle.rangeHighlightBorderRadius),
+                          )
+                        : day.weekday == endDay
+                            ? BorderRadius.only(
+                                topRight: Radius.circular(widget
+                                    .calendarStyle.rangeHighlightBorderRadius),
+                                bottomRight: Radius.circular(widget
+                                    .calendarStyle.rangeHighlightBorderRadius),
+                              )
+                            : null,
+                  ),
+                  margin: EdgeInsetsDirectional.only(
+                    start: isRangeStart ? constraints.maxWidth * 0.5 : 0.0,
+                    end: isRangeEnd ? constraints.maxWidth * 0.5 : 0.0,
+                  ),
+                  height:
+                      (shorterSide - widget.calendarStyle.cellMargin.vertical) *
+                          widget.calendarStyle.rangeHighlightScale,
                 ),
-                margin: EdgeInsetsDirectional.only(
-                  start: isRangeStart ? constraints.maxWidth * 0.5 : 0.0,
-                  end: isRangeEnd ? constraints.maxWidth * 0.5 : 0.0,
-                ),
-                height:
-                    (shorterSide - widget.calendarStyle.cellMargin.vertical) *
-                        widget.calendarStyle.rangeHighlightScale,
-                // color: widget.calendarStyle.rangeHighlightColor,
               ),
             );
           }

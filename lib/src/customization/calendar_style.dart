@@ -66,6 +66,9 @@ class CalendarStyle {
   /// Color of range selection highlight.
   final Color rangeHighlightColor;
 
+  /// Padding range selection highlight.
+  final bool rangeHighlightPadding;
+
   /// Determines if day cells that do not match the currently focused month should be visible.
   ///
   /// Affects only `CalendarFormat.month`.
@@ -165,6 +168,7 @@ class CalendarStyle {
     this.markersAnchor = 0.7,
     this.rangeHighlightScale = 1.0,
     this.rangeHighlightBorderRadius = 16.0,
+    this.rangeHighlightPadding = true,
     this.markerMargin = const EdgeInsets.symmetric(horizontal: 0.3),
     this.markersAlignment = Alignment.bottomCenter,
     this.markersMaxCount = 4,
