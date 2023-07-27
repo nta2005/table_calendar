@@ -597,7 +597,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
         if (rangeHighlight == null) {
           if (isWithinRange) {
             int startDay = getWeekdayNumber(widget.startingDayOfWeek);
-            int endDay = _renderEndDay(widget.startingDayOfWeek);
+            int endDay = _getRangeHighlightEndDay(widget.startingDayOfWeek);
 
             rangeHighlight = Center(
               child: Container(
@@ -799,29 +799,31 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
     return weekendDays.contains(day.weekday);
   }
 
-  _renderEndDay(StartingDayOfWeek startingDayOfWeek) {
+  int _getRangeHighlightEndDay(StartingDayOfWeek startingDayOfWeek) {
     switch (getWeekdayNumber(startingDayOfWeek)) {
-      // StartingDayOfWeek.monday
+      // Monday
       case 1:
         return DateTime.sunday;
-      // StartingDayOfWeek.tuesday
+      // Tuesday
       case 2:
         return DateTime.monday;
-      // StartingDayOfWeek.wednesday
+      // Wednesday
       case 3:
         return DateTime.tuesday;
-      // StartingDayOfWeek.thursday
+      // Thursday
       case 4:
         return DateTime.wednesday;
-      // StartingDayOfWeek.friday
+      // Friday
       case 5:
         return DateTime.thursday;
-      // StartingDayOfWeek.saturday
+      // Saturday
       case 6:
         return DateTime.friday;
-      // StartingDayOfWeek.sunday
+      // Sunday
       case 7:
         return DateTime.saturday;
+      default:
+        throw Exception('Invalid startingDayOfWeek: $startingDayOfWeek');
     }
   }
 }
